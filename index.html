@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+
+<!--html lang="en" manifest="/cache.appcache"-->
+<html lang="en">
+<head>
+<title>Skylar&apos;s Guide To Armor</title>
+<meta charset="utf-8">
+ <!-- This link is only necessary if you&apos;re using an external stylesheet -->
+
+<script>
+	/* This function allows for the showing/hiding of the reference information 
+	  on the right hand side of the screen */
+	function toggleContent(sectionId) {
+    	var x = document.getElementById(sectionId);
+    	if (x.style.display === "block") {
+      		x.style.display = "none";
+    	} else {
+      		x.style.display = "block";
+    	}
+	}
+
+	/* This function fades in the table of contents which appears on the left hand side of the screen */
+	function fadeIn(){
+		var x = document.getElementById('tableofcontents');
+    	x.classList.toggle('show');
+	}
+
+</script>
+
+<style>
+	.content p {
+		font-family: Georgia, 'Times New Roman', Times, serif;
+		font-size: 1.em;
+	}
+
+	/*  Main background  */
+	body {
+		background-color: rgb(63, 63, 63);
+		margin: 0;
+	}
+
+	/*  TOC  */
+	.leftsidebar {
+		position: fixed;
+		top: 0;
+		left: 0px; /* Initially off-screen */
+		width: 380px;
+		height: 100%;
+		padding: 20px;
+		overflow-y: auto;
+		font-size: .9em;
+	}
+	.leftsidebar li {
+		list-style-type: none;
+		font-family: Georgia, 'Times New Roman', Times, serif;
+	}
+	.leftsidebar .space{
+		margin-top: 20px;
+	}
+	.tableofcontents {
+		/*background-color: rgb(14, 219, 219);*/
+		padding: 10px;
+		margin: 10px;
+		border: 4px solid  rgb(4, 201, 252);
+		box-shadow: inset 0 0 30px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.5);
+		border-radius: 10px;
+		opacity: 0;
+		transition: opacity 1s ease;
+	}
+	.tableofcontents a {
+		color: rgb(4, 201, 252);
+		text-shadow: 0 0 30px rgb(4, 201, 252);
+	}
+	.tableofcontents details > summary::before {
+		content: "+ ";
+		display: inline-block;
+		font-size: 1em;
+		font-family: 'Courier New', Courier, monospace;
+		line-height: 1;
+		margin-left: -1em;
+		vertical-align: middle;
+		color: rgb(4, 201, 252);
+		text-shadow: 0 0 30px rgb(4, 201, 252);
+  	}
+	.tableofcontents details[open] > summary::before {
+		content: "- ";
+		font-family: 'Courier New', Courier, monospace;
+		color: rgb(4, 201, 252);
+		font-size: 1em;
+		margin-left: -1em;
+		text-shadow: 0 0 30px rgb(4, 201, 252);
+	}
+	.show {
+		opacity: 1;
+	}	
+	.showTOC {
+		transform: rotate(-90deg); 
+		right: 0;
+		position: absolute;
+  		top: 50%; /* Position the button vertically centered */
+  		right: -30px; /* Position the button to the right side */
+		color: rgb(4, 201, 252);
+		text-shadow: 0 0 30px rgb(4, 201, 252);
+		cursor: pointer;
+	}
+
+	/* Reference */
+	.rightsidebar {
+		position: fixed;
+		top: 0;
+		right:0;
+		width: 380px;
+		height: 100%;
+		padding: 20px;
+		overflow-y: auto;
+	}
+	.contentSection {
+		position: relative;
+		display: none;
+	}
+	.close {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.rulebook {
+		background-color: white;
+		border: black 1px solid;
+		padding: 10px;
+	}
+	.rulebook h4 {
+		color:  rgb(74,21,47);
+		font-size: 20px;
+		font-family: "Crimson Roman", serif;
+	}
+	.page {
+		text-align: center;
+		font-size: smaller;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.page img {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.discord {
+		background-color: rgb(49, 51, 56);
+		color: rgb(173,173,158);
+		padding: 10px;
+	}
+	.discord .time, .discord .date {
+		font-size: smaller;
+		color: rgb(114,110,114);
+	}
+	.CraftPacket {
+		text-align: center;
+		font-family: 'Papyrus','Lucida Calligraphy','Brush Script MT', cursive;
+	}
+	.date {
+ 		text-align: center; /* Center the text */
+  		position: relative; /* Set the position to relative */
+	}
+	.date::before,
+	.date::after {
+		content: "";
+		display: block;
+		width: 30%; /* Adjust the width of the horizontal lines */
+		height: 1px; /* Set the height of the horizontal lines */
+		background-color: rgb(114,110,114); /* Set the color of the horizontal lines */
+		position: absolute;
+		top: 50%; /* Position the horizontal lines vertically centered */
+	}
+	.date::before {
+		left: 0; /* Position the line before the text */
+	}
+	.date::after {
+		right: 0; /* Position the line after the text */
+	}
+	.discord .date{
+		padding: 10px;
+		text-align: center;
+	}
+	.discord .PM {
+		color: rgb(53, 141, 201);
+	}
+
+	.facebook {
+		background-color: white;
+		border: black 1px solid;
+		padding: 10px;
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-size: small;
+	}	
+	.fbPoster {
+		font-style: bold;
+		padding: 0;
+		margin: 0;
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+	.fbDate {
+		font-size: smaller;
+		padding: 0;
+		margin: 0;
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+
+	/*  Main content  */
+	.scroll {
+		margin-left: 420px; /* Adjust this value to match the width of the sidebar */
+		margin-right: 420px;
+		background-color: rgb(0, 0, 0);
+	}
+	.content {
+		padding: 20px;
+		margin: 0 20px;
+		background-color: rgb(208, 179, 141);
+		background-image: url('parchment_texture_50.png');
+		background-size: 400px;
+	}
+	#spacer {
+		height: 80px;
+		background-image: url('leather_top_texture.png');
+		background-position-y: bottom;
+		background-size: 300px;
+		background-repeat: repeat-x;
+	} 
+
+
+	/***  Formatting  ***/
+	.italic {
+		font-style: italic;
+	}
+	.bold {
+		font-weight: bold;
+	}
+	.unofficial {
+		color: blue;
+		font-size: 1em;
+	}
+	.privileged {
+		color: rgb(148, 62, 202);
+		font-size: 1.2em;
+	}
+
+	.privileged summary::before {
+		content: "";
+		display: inline-block;
+		font-size: 1.2em;
+		line-height: 1;
+		margin-left: 0.5em;
+		vertical-align: middle;
+  	}
+  	.privileged[open] > summary::before {
+    	content: "";
+ 	}
+
+	details > summary {
+		list-style: none;
+	}
+	details > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.mirror {
+		transform: scaleX(-1);
+	}
+	.red {
+		color: red;
+	}
+	.clickable {
+		cursor: help;
+		background-color: #f5f5f53d;	
+	}
+
+	/* Alignment */
+	.h2_shift {
+		margin-left: 30px;
+	}
+	.h3_shift {
+		margin-left: 50px;
+	}
+	.centered {
+		text-align: center;
+	}
+	.CenteredTable {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	/* Detail formatting */
+
+	details > summary::before {
+		content: "+";
+		display: inline-block;
+		font-size: 1.2em;
+		line-height: 1;
+		margin-left: 0.5em;
+		vertical-align: middle;
+  	}
+  	details[open] > summary::before {
+    	content: "- ";
+ 	}
+	.details-wrapper {
+		display: inline-block;
+		position: relative;
+	}
+	.details-wrapper details {
+		display: none;
+	}
+	.details-wrapper details[open] {
+		display: inline-block;
+	}
+	.space {
+		padding-top: 20px;
+	}
+
+</style>
+</head>
+<body>
+	<!-- Table of Contents -->
+	<div id="leftsidebar" class="leftsidebar">
+		<div id="tableofcontents" class="tableofcontents">
+			<div class="h2_shift">
+				<a href="#Introduction">Introduction</a><br>
+				<a href="#Disclaimer">Disclaimer</a><br>
+
+			<details>
+				<summary>
+					<a href="#ArmorBasics">Armor Basics</a>
+				</summary>
+				<div class="h2_shift">
+					<a href="#ArmorLocations">Locations</a><br>
+					<a href="#ArmorTypes">Types</a><br>
+					<a href="#CalculatingAP">Calculating AP</a><br>
+				</div>
+			</details>
+
+			<details>
+				<summary>
+					<a href="#ArmorSkills">Armor Related Skills</a>
+				</summary>
+				<div class="h2_shift">
+					<a href="#ArmorMove">Armor Move</a> <br>
+					<a href="#Armorsmithing">Craft - Armorsmithing</a><br>
+					<a href="#OtherSkills">Other helpful skills</a><br>
+				</div>
+			</details>
+
+			<details>
+				<summary>
+					<a href="#Combat">Combat</a>
+				</summary>
+				<div class="h2_shift">
+					<a href="#Damage">Taking damage</a> <br>
+					<a href="#Example">Combat Example</a><br>
+					<details>
+						<summary>
+							<a href="#MagicArmor">Magical Armor</a><br>
+						</summary>
+						<div class="h2_shift">
+							<a href="#Bulwark">Bulwark Series</a> <br>
+							<a href="#OakHide">Oak Hide Series</a><br>
+							<a href="#Protection">Protection Series</a><br>
+							<a href="#WindArmor">Wind Armor</a><br>
+							<a href="#DivineProtection">Divine Protection</a><br>
+							<a href="#IceMantle">Ice Mantle</a><br>
+							<a href="#ArmorRune">Armor Rune</a><br>
+							<a href="#SpellRestrict">Spell Restrictions</a><br>
+						</div>
+					</details>
+					<a href="#BrokeDestroy">Broken vs Destroyed</a><br>
+					<details>
+						<summary>
+							<a href="#RepairOptions">Repair Options</a><br>
+						</summary>
+						<div class="h2_shift">
+							<a href="#NonBroken">Non-Broken</a> <br>
+							<a href="#Broken">Broken</a><br>
+							<a href="#Destroyed">Destroyed</a><br>
+						</div>
+					</details>
+				</div>
+			</details>
+			<details>
+				<summary>
+					<a href="#Enchanting">Enchanting</a>
+				</summary>
+				<div class="h2_shift">
+					<a href="#RepairRune">Repair Rune</a> <br>
+					<a href="#FortRune">Fortification Rune</a><br>
+				</div>
+			</details>
+
+			<a href="#Buying">Buying</a>	<br>
+			<a href="#Physreps">Physreps and you</a>	<br>
+
+			<details>
+				<summary>
+					<a href="#Crafting">Crafting</a>
+				</summary>
+				<div class="h2_shift">
+					<a href="#OnField">On Field</a> <br>
+					<a href="#BetweenEvents">Between Events</a><br>
+				</div>
+			</details>
+
+			<details>
+				<summary>
+					<a href="#SubClasses">SubClasses</a>
+				</summary>
+				<div class="h2_shift">
+					<a href="#Champion">Champion</a> <br>
+					<a href="#Artisian">Artisian</a><br>
+					<a href="#Artificer">Artificer</a><br>
+				</div>
+			</details>
+
+			<!--a href="#SellingRepairing">Selling/Repairing</a>	<br-->
+			<a href="#MergingLocations">Merging Locations</a>	<br>
+
+			<br>
+			<details>
+				<summary>
+					<a href="#AppendixI">Appendix I - Skills</a>
+				</summary>
+				<div class="h2_shift">
+					<a href="#Appraisal">Appraisal</a> <br>
+					<a href="#Alchemy">Alchemy</a><br>
+					<a href="#ReadWrite">Read/Write</a><br>
+					<a href="#Math">Math</a> <br>
+					<a href="#MoreMath">More Math</a><br>
+					<a href="#SpellCasting">Spell Casting</a><br>
+					<a href="#MetalLore">Metal Lore</a> <br>
+				</div>
+			</details>
+			<br>
+			<details>
+				<summary>
+					<a href="#AppendixI">Appendix II - Special Armors</a>
+				</summary>
+				<div class="h2_shift">
+					<a href="#Appraisal">Bronzewood and Chitinous Hide</a> <br>
+				</div>
+			</details>
+			</div>
+
+		</div>
+		<p class="showTOC" onclick="fadeIn()">Table of contents</p>
+
+	</div>
+	<!-- Reference -->
+	<div class="rightsidebar">
+		<!-- These are the refrences to the rulebooks -->
+		<div id="example" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('armorLocation')"> X </div>
+			<p class="centered">
+				The text will appear here!!
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 0<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+
+		<div id="armorLocation" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('armorLocation')"> X </div>
+			<h4 >Armor Locations</h4>
+				<p>
+				A suit of armor is divided into 7 locations: 2 legs, 2
+				arms, front torso, rear torso, and head. Armor points
+				are given based on the number of locations armored.
+				</p>
+				<p>
+				If a player has both upper arms (but not lower arms), or
+				both lower arms (but not upper arms), they gain AP as
+				if they had ONE arm location covered. If a player has
+				both upper legs (but not lower legs), or both lower legs
+				(but not upper legs), they gain AP as if they had ONE
+				leg location covered.
+				</p>
+				<p>
+				<span class="bold">Example:</span> Samson has a plate breastplate (20), 2 plate
+				legs (20x2), and 2 leather arms (5x2), for 70 total AP.
+				</p>
+				<p class="page"><img src="page_decoration.svg" alt="decoration">Page 18<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="knockoutHelmet" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('knockoutHelmet')"> X </div>
+			<p>
+			<strong>Knockout:</strong> With this surprise attack, a character is able
+				to inflict a target with the Stunned status (see Status list).
+				To simulate this attack, the attacker must tap between
+				the shoulder blades of the victim with the pommel of
+				the weapon while announcing “Knockout”. This action
+				represents a blow to the back of the head, so a metal
+				helmet that covers the back of the head will protect the
+				victim from this attack. This attack may be performed
+				on any humanoid-shaped figure of a height no greater
+				than 10 feet. This attack doesn&apos;t inflict damage.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 15<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="armorType" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('armorType')"> X </div>
+			<h4>Armor Types</h4>
+			<p>
+				There are four types of armor in Kanar: Leather,
+				Composite, Chainmail/Metal Scale and Plate.
+			</p>
+			<p>
+				<span class="bold">Leather:</span> This armor is made from the hides of animals.
+				The leather is usually hardened to fit the wearer. <br>
+				<span class="bold">Composite: </span>These are more advanced forms of leather
+				armor. Some examples of this are studded leather,
+				leather scale, and ring mail.<br>
+				<span class="bold">Chain/Metal Scale:</span> Chainmail is composed of small
+				metal rings interwoven to form a flexible material,
+				which is shaped into hoods, vests, etc. Metal scale is
+				similar to leather scale except that the scales are made
+				of metal.<br>
+				<span class="bold">Plate:</span> Plate armor is made of large metallic plates that
+				are shaped and articulated to offer nearly complete
+				protection of the entire body.
+				<br><br>
+				...
+				<br><br>
+					<span class="italic">Leather Armor</span>: 5AP/location <br>
+					<span class="italic">Composite Armor</span>: 10AP/location <br>
+					<span class="italic">Chain/Scale Armor</span>: 15AP/location <br>
+					<span class="italic">Plate Armor</span>: 20AP/location
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 18<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="CalcAP1" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('CalcAP1')"> X </div>
+
+				<p>
+					A character may benefit from up to 140 points
+					of non-magical armor, or the number of points allowed
+					by their Armor Move skill, whichever is lower.
+				<br><br>
+				...
+				<br><br>
+				<span class="bold">Example:</span> Samson has a plate breastplate (20), 2 plate
+				legs (20x2), and 2 leather arms (5x2), for 70 total AP.
+				</p>
+				<p class="page"><img src="page_decoration.svg" alt="decoration">Page 18<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="underArmorMove" class="contentSection discord">
+			<div class="close" onclick="toggleContent('underArmorMove')"> X </div>
+			<p class="date">July 10, 2022</p>
+			<p>
+				<span  class="time"> 11:19 AM</span> <span class="PM">Jeremiah - PM 1st:</span> Angelo is correct. If you do have 1 armor move and wear a piece of plate though when the 5ap is exhausted your plate then breaks as if it's full 20ap was exhausted.
+			</p>
+		</div>
+
+		<div id="ArmorMoveRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('ArmorMoveRules')"> X </div>
+			<p>
+				Physical Abilities can be purchased multiple times at
+				the same cost. Once a character knows the skill, it can
+				be self-taught additional times.
+				<br><br>
+				<strong>Armor Move:</strong> This skill allows a character to benefit
+				from armor they are wearing. For each level of
+				Armor Move bought, a character can benefit from up to
+				5 points of armor worn.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 14<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+
+		</div>
+
+		<div id="CraftArmorsmithing" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('CraftArmorsmithing')"> X </div>
+			<p>
+				Physical Abilities can be purchased multiple times at
+				the same cost. Once a character knows the skill, it can
+				be self-taught additional times.
+				<br><br>
+				<strong>Armor Move:</strong> This skill allows a character to benefit
+				from armor they are wearing. For each level of
+				Armor Move bought, a character can benefit from up to
+				5 points of armor worn.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 14<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="Combat1" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('Combat1')"> X </div>
+			<p>
+				When a character wearing armor receives damage,
+				that amount of damage is subtracted from the piece of
+				armor with the lowest number of AP. Once that piece of
+				armor has been reduced to 0 AP, damage is then applied
+				to the piece of armor with the next-highest AP, and so
+				on. If at any point, a piece of armor is reduced to 0, it
+				is broken and must be repaired in between events by
+				the appropriate crafter or on field as the crafters on
+				field crafting time. Repair time and cost is half of its
+				creation time and cost.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 18<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="BulwarkSeriesRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('BulwarkSeriesRules')"> X </div>
+			<h2> Bulwark, Minor</h2>
+			<p>
+				<i>
+				Bardic 1 (Bindings: P, S, E)<br>
+				Earth/Positive, Augment/Event, Touch/one Target</i><br><br>
+				Target Armor gains 2 magic AP. Target must be equipped.
+				When the spell’s AP is depleted, the spell ends. Only one
+				location of armor on a person can be affected by a spell of
+				this series at a time.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Spell Codex Page 9<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="OakHideSeriesRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('OakHideSeriesRules')"> X </div>
+			<h2> Oak Hide, Lesser</h2>
+
+			<p>
+				<i>
+					Earth-Water 2 (Bindings: P, S, E)
+					Earth/Wild, Protection/Event, Touch/One Target</i><br><br>
+					Target gains 4 magical AP. If the target receives a Backstab,
+					or acquires the Knockout or Stunned statuses, that attack
+					is negated and the spell ends. If the magical AP provided is
+					depleted, the spell ends.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Spell Codex Page 17<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+			<div class="close" onclick="toggleContent('OakHideSeriesRules')"> X </div>
+			<h2> Oak Hide, Greater</h2>
+			<p>
+				<i>
+					Earth-Water 6 (Bindings: P, S, E)
+					Earth/Wild, Protection/Event, Touch/One Target</i><br><br>
+					Target gains 6 magical AP. If the target receives a Backstab
+					or Assassinate attack, or acquires the Knockout or Stunned
+					statuses, that attack is negated and the spell ends. If the
+					magical AP provided is depleted, the spell ends.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Spell Codex Page 20<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="ProtectionSeriesRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('ProtectionSeriesRules')"> X </div>
+			<h2> Protection, Minor</h2>
+			<p>
+				<i>
+				Bardic and Fire-Air 1 (Bindings: P, S, E)<br>
+				Air/Positive, Protection/Event, Thrown/One Target</i><br><br>
+				Target gains 2 magical AP. When this armor is depleted,
+				the spell ends.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Spell Codex Page 23<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="WindArmorRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('WindArmorRules')"> X </div>
+			<h2>Wind Armor</h2>
+			<i>
+				Bardic and Fire-Air 9 (Bindings: P, S, E)<br>
+				Air/Positive, Protection/Event, Thrown/One Target<br>
+			</i>
+			Target gains 6 magical AP, which are only depleted if no
+			other AP remains. Attacks which bypass armor do not
+			bypass this AP. This spell ends if these AP are depleted, or
+			if the target receives any of the following (which are then
+			negated): A <i>Death Strike</i>, a <i>Demise</i>, <i>Death</i>, or <i>Degenerate</i> spell,
+			a surprise attack, or the Paralyzed or Stunned statuses.
+
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Spell Codex Page 15,28<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="DivineProtectionRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('DivineProtectionRules')"> X </div>
+			<h2>Divine Protection</h2>
+			<i>
+				Earth-Water 9 (Bindings: P, S, E)<br>
+				Earth/Positive, Protection/Event, Touch/One Target<br>
+			</i>
+			Target gains 6 magical AP, which are only depleted if no
+			other AP remains. Attacks which bypass armor do not
+			bypass this AP. This spell ends if these AP are depleted, or
+			if the target receives any of the following (which are then
+			negated): A <i>Death Strike</i>, a <i>Demise</i>, <i>Death</i>, or <i>Degenerate</i> spell,
+			a surprise attack, or the Paralyzed or Stunned statuses.
+
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Spell Codex Page 22<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="IceMantleRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('IceMantleRules')"> X </div>
+			<h2>Ice Mantle</h2>
+			<i>
+				Earth-Water 2 (Bindings: P, S, E)<br>
+				Water/Wild, Protection/Event, Touch/One Target<br>
+			</i>
+			Target gains 2 magical AP. Fire attacks which would
+			normally bypass armor do not bypass this armor
+
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Spell Codex Page 16<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="ArmorRuneRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('ArmorRuneRules')"> X </div>
+			<h2>Armor Rune, Lesser</h2>
+			<u>Skill Required:</u> Demi-Enchanting 1<br>
+			<u>Preparation Time:</u> 6 weeks<br>
+			<u>Activation Phrase Minimum: </u> None (Always Active)<br>
+			The enchanted clothing provides 2 AP of protection, which
+			does not require Armor Move, and does not count toward
+			the maximum armor allowance Protection from multiple
+			pieces of clothing with this Rune does not stack, and
+			sustained damage will be applied to all articles being worn
+			The enchanted clothing will repair itself at the rate of 1 AP
+			per day
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 26<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="SpellRestrictRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('SpellRestrictRules')"> X </div>
+			<h2>Spell Restrictions</h2>
+			An item may only have one Augment spell active on it
+			at any one time A character may only have one Boon
+			and one Protection spell of a single element active upon
+			them at any one time For instance, they may have
+			one Air Protection and one Earth Protection, or one
+			Air Protection and one Air Boon, but never two Air
+			Protections<br><br>
+			If an item or character is successfully targeted by a spell
+			of a higher level than one currently active upon them,
+			and the existing effect conflicts with the new one as
+			described above, the old spell ends and the new one
+			takes effect For instance, if a character is currently
+			under the effects of a Level 2 Water Boon, and they are
+			successfully targeted by a Level 3 Water Boon, the Level
+			2 spell ends and the Level 3 spell takes effect<br><br>
+			Please note: Some Mass spells state that all targets in
+			the area gain the effects of a lower-level spell For the
+			purposes of deciding which spell ends and which one
+			takes effect, the Mass spell counts as the level of the
+			spell listed in the description For example, someone
+			under the effects of Courage of Aeracon may be within
+			the area of a Mass Greater Courage spell – that spell
+			would not replace the Courage of Aeracon, since it is a
+			higher level than Greater Courage<br><br>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 33<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="GreaterSpellBarrierRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('GreaterSpellBarrierRules')"> X </div>
+			<h2>Spell Barrier, Greater</h2>
+			<i>
+				Fire-Air 8 (Bindings: P, S, E)<br>
+			Air/Neutral, Protection/Event, Thrown/One Target<br>
+			</i>
+			<p>
+				This spell will negate the next Charm, Hex, Damage or
+				Offensive spell cast upon the target (or multiple-target spell
+				affecting this spell’s target) that is of 8th level or less, and
+				then end. Spells of a higher level of those types will end this
+				spell and still cause their effect
+			</p>
+
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Spell Codex Page 28<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="RepairCraftRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('RepairCraftRules')"> X </div>
+			You have knowledge of how to create and repair armor. The amount of armor points that may be created or repaired in a given time is adjusted by the smith’s level of Armorsmithing. <br>
+			You can repair armor on field without cost at a rate of 1AP/5 min. Skill discounts apply to this rate. (IE: one min discount per/level past level1)<br>
+
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Craft Codex - Armorsmithing<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="RepairMend" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('RepairMend')"> X </div>
+			<h2>Mend</h2>
+			<i>
+				Earth-Water 2 (Bindings: S, E) <br>
+				Earth/Wild, Augment/Instant, Touch/One Target<br>
+			</i>
+			Restores 5 AP to target location of armor made from any
+			dead organic material. This spell may not be used to repair
+			broken or destroyed armor. Alternatively, the caster may
+			choose to repair one weapon or object the size of a staff or
+			smaller made of dead organic material, or repair 1 siege
+			point to a wooden door/gate.
+
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Spell Codex Page 17 <img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="RepairMetalMend" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('RepairMetalMend')"> X </div>
+			<p>
+				<strong>Metal Mend:</strong> This substance repairs 5 points of Chain,
+				scale, or plate armor.<br><br>
+				NOTE: The mend alchemy cannot repair broken or
+				destroyed weapons/armor.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 39 <img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="MendingOilRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('MendingOilRules')"> X </div>
+			<p>
+				<strong>Mending Oil:</strong> This Substance, when administered to
+				a broken location of armor will return that location of
+				armor to a usable condition at 1AP. Alternatively, this
+				Substance may be used to return a weapon from Broken
+				to Usable. This Substance will not fix a destroyed item.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 39 <img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="RepairRuneRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('RepairRuneRules')"> X </div>
+			<h2>Repair Rune, Lesser</h2>
+			<p>
+				<u>Skill Required:</u> Demi-Enchanting 1<br>
+				<u>Preparation Time:</u> 6 weeks<br>
+				<u>Activation Phrase Minimum:</u> None (Always Active)<br>
+				The enchanted armor will self-repair 1 AP per day, and is
+				not broken or destroyed if its AP is reduced to 0 – even the
+				broken or destroyed pieces will repair themselves.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 26<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="FortRuneRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('FortRuneRules')"> X </div>
+			<h2>Fortification Rune, Lesser</h2>
+			<p>
+				<u>Skill Required:</u> Demi-Enchanting 1<br>
+				<u>Preparation Time:</u> 6 weeks<br>
+				<u>Activation Phrase Minimum:</u> None (Always Active)<br>
+				The enchanted item cannot be broken or destroyed by any
+				mundane or magical means.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 26<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="DeedRules" class="contentSection discord">
+			<div class="close" onclick="toggleContent('DeedRules')"> X </div>
+			<p class="date">February 16, 2024</p>
+			<p>
+				<span  class="time"> 1:05 PM</span> <span class="PM">Jeremiah - PM 1st:</span> They do not have to be fancy but you are welcome to make them fancy.  They require the words deed of ownership. What the item is. And the tag number/s it is attached to
+			</p>
+		</div>
+
+		<div id="CraftingRules" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('CraftingRules')"> X </div>
+			<h1>Out-of-Game Mechanics for Item Creation</h1>
+			<p>
+				<strong>Off field:</strong> All Item creation occurring between events
+				is done on-line and requires the use of a player bank.
+				Go to www.kanar.club and fill out the appropriate item
+				creation form. Please see the crafting packets for details
+				on what you can craft in between events. Once your
+				creation time has been completed, the game staff will
+				give you a tag for your item at the following event.<br><br>
+
+				<strong>On field:</strong> Once per event, a character may use a Craft,
+				Herbalism, or Item Creation skill to craft or refine an
+				item on field. To do so, they must spend two hours
+				roleplaying the process. This roleplay must involve
+				Phys. Reps. for appropriate tools and materials, simply
+				miming the actions with no props is insufficient.<br><br>
+				One prop (such as an anvil, a sewing basket, or a small
+				workbench) should be marked with yellow tape and
+				placed on a flat, stationary surface (such as the ground
+				or a table) at the beginning of this time. If the marked
+				item is moved, if the character falls unconscious, or if
+				they move more than 10’ from the item at any point,
+				this time is lost and they must start over. If the char-
+				acter is successful, they may see an appropriate staff
+				member for a tag for one of the following: <br><br>
+			</p>
+				<ol>
+				<li>
+					One Non-Master Crafted Item which the char-
+					acter could produce using their existing Craft
+					skill(s), Herbalism skill, or Item Creation skills in
+					one month or less. The character must still pay
+					all coin and material costs for creating the item.
+					If creating a potion or scroll, the crafter must
+					successfully cast the spell being placed into the
+					item during the roleplayed crafting time. This
+					spell will be absorbed by the item upon casting
+				</li>
+				<li class="space">
+					One Master Crafted item which the character
+					could produce using their existing Level 5 Craft
+					skill(s) in one month or less. The player must first
+					provide a tag for an identical Non-Master Crafted
+					Item, as well as any difference in coin or material
+					costs between a Master Crafted and Non-Master
+					Crafted item of that type.
+				</li>
+			</ol>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 23<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="ChampionSub" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('ChampionSub')"> X </div>
+			<h1>Champion</h1>
+			<p>
+				Might make Right! These fighters have both the feroc-
+				ity to strike hard and the wisdom to protect themselves
+				in the woes of combat<br><br>
+				<strong>Ability:</strong> Gains 10AP if not wearing a helmet This
+				ability will not stop knockout This armor regenerates
+				at dawn<br>
+				<i>
+					&nbsp;&nbsp;&nbsp;Prerequisites:<br>
+					&nbsp;&nbsp;&nbsp;Added Damage 2<br>
+					&nbsp;&nbsp;&nbsp;Blind Fighting<br>
+					&nbsp;&nbsp;&nbsp;Forensics (2)<br>
+					&nbsp;&nbsp;&nbsp;Hamstring<br>
+					&nbsp;&nbsp;&nbsp;Heraldry Lore<br>
+					&nbsp;&nbsp;&nbsp;Weapon (Any)<br>
+					&nbsp;&nbsp;&nbsp;Weapon Group (Any)<br>
+					</i>
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Subclass Codex Page 7<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="ArtisianSub" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('ArtisianSub')"> X </div>
+			<h1>Artisan</h1>
+			<p>
+			With many hundreds of hours of practice, creation
+			becomes art An Artisan can create works quickly that
+			other crafters would struggle to create at all <br><br>
+
+			<strong>Ability:</strong> Allows the artisan to either craft an item of up
+			to 8 weeks of time or craft two items of 4 weeks or less
+			on field (Does not include Enchanting)<br><br>
+				<i>
+				&nbsp;&nbsp;&nbsp;Prerequisites: Alchemy/Potions/Scrolls (Pick 1) (2), <br>
+				&nbsp;&nbsp;&nbsp;Appraisal,<br>
+				&nbsp;&nbsp;&nbsp;Artistry (3),<br>
+				&nbsp;&nbsp;&nbsp;Astronomy Lore, <br>
+				&nbsp;&nbsp;&nbsp;Cartography, <br>
+				&nbsp;&nbsp;&nbsp;Craft: Any (3), <br>
+				&nbsp;&nbsp;&nbsp;Fauna Lore, <br>
+				&nbsp;&nbsp;&nbsp;First Aid, <br>
+				&nbsp;&nbsp;&nbsp;Flora Lore, <br>
+				&nbsp;&nbsp;&nbsp;Math,<br>
+				&nbsp;&nbsp;&nbsp;Metal Lore,<br>
+				&nbsp;&nbsp;&nbsp;More Math, <br>
+				&nbsp;&nbsp;&nbsp;Physical Development, <br>
+				&nbsp;&nbsp;&nbsp;Scribe Lore, <br>
+				&nbsp;&nbsp;&nbsp;Stone Lore,<br>
+				&nbsp;&nbsp;&nbsp;Symbol Lore, <br>
+				&nbsp;&nbsp;&nbsp;Symbol Lore: Makers Sigil, <br>
+				&nbsp;&nbsp;&nbsp;Urban Lore, <br>
+				&nbsp;&nbsp;&nbsp;Urban Lore:(Guilds)
+				</i>
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Subclass Codex Page 8<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+
+		<div id="ArtificerSub" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('ArtificerSub')"> X </div>
+			<h1>Artificer (*)</h1>
+
+			<p>
+				With many thousands of hours of practice, art becomes
+				life An Artificer creates as easy as they breathe, and
+				their scrapped projects put masterpieces to shame An
+				Artificer’s Magnum Opus may be worth more than a
+				kingdom<br><br>
+				<strong>Ability:</strong> Allows the Artificer to either craft an item of
+				up to 8 weeks of time or craft two items of 4 weeks or
+				less on field Crafting on field takes half the amount
+				of time that it normally would (Does not include
+				enchanting)<br><br>
+
+				<i>
+					&nbsp;&nbsp;&nbsp;&nbsp;Prerequisites: <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Analyze Magic Item,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Appraisal,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Artifact Lore, <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Artistry (5), <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Craft: X (5), <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Culture Lore (Any), <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Detect Magic, <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Fauna Lore,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;First Aid,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Flora Lore,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Math,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Metal Lore,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Metal/Stone/Flora/Fauna (Specialization) (20),  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;More Math,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Planar Lore (Any),  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Read/Write Ancient Common,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Resist Sleep (2),  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Resist Stun (2),  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Scribe Lore,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Second Craft: X (5),  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Siege Group,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Stone Lore,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Symbol Lore,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Symbol Lore (Makers Sigil), <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Tanning, Third Craft: X (5),  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Urban Lore,  <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Urban Lore (Guilds), <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;Urban Lore:(Any) (4), <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;1 Life Credit
+				</i>
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Subclass Codex Page 8<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="MergeLocationPost" class="contentSection facebook" >
+			<div class="close" onclick="toggleContent('MergeLocationPost')"> X </div>
+			<p class="fbPoster">Kanar Gaming Enterprises Inc.</p>
+			<p class="fbDate">February 19</p>
+			<p>
+				Hello everyone!<br>
+				<br>
+				The Game Master Staff and Play Master Staff have been working together to bring you the following change to lighten the burden on the new armor system.<br>
+				<br>
+				Armor Locations that share a singular physical representation can be merged through the Economic Staff. These merged locations would share a AP (Armor Points) pool. Meaning they would be broken together but would also mean they can be repaired together. This also means if you have 4 locations of plate merged into 1 tag they would need to take a total of 80 damage before breaking.<br>
+				<br>
+				This should make the new changes to the armor system easier to manage.<br>
+				<br>
+				We hope to see everyone again for this season, let's make it a great year!<br>
+				<br>
+				-PM1 &amp; GM1
+			</p>
+			<p class="centered"><a href="https://www.facebook.com/Kanarlarp/posts/pfbid0ukmCEYFzQNJHkhJzWFsFjigiugcootKw7z2Z7mHbZ7UeNEXgaSLasJre5AU6xrdUl">Take me to the FB post</a></p>
+
+		</div>
+
+		<div id="AppraisalSkill" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('AppraisalSkill')"> X </div>
+			<p>
+				<strong>Appraisal: </strong>Characters with this skill learn how to look
+				for flaws and merits in items When not used with an
+				appropriate lore skill, profession, or trade, a character
+				with this skill can only make an educated guess as to
+				the worth of an item, as they can look for merits and
+				flaws, but have no idea how much those merits and
+				flaws affect the worth of the item When used with an
+				appropriate lore skill or profession, that character is
+				able to make a closer estimate of the worth of the item
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 8<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="AlchemySkill" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('AlchemySkill')"> X </div>
+			<p>
+
+				<strong>Alchemy:</strong> With this skill, a character is able to create Acids and Alchemical Pastes Please see the Alchemy
+				section for further discussion of this skill<br><br>
+				<i>
+				&nbsp;&nbsp;&nbsp;Prerequisite:<br>
+				&nbsp;&nbsp;&nbsp;Alchemy 1-3: Read/Write (Any), Math<br>
+				&nbsp;&nbsp;&nbsp;Alchemy: 4+: More Math.<br>
+				</i>
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 13<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="ReadWriteSkill" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('ReadWriteSkill')"> X </div>
+			<p>
+				<strong>Read/Write (Choose Specialization):</strong> You must
+				choose to specialize in one language at the time this
+				skill is purchased The character may read and write in
+				that language This skill may be purchased additional
+				times, specializing in other languages
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 9<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="MathSkill" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('MathSkill')"> X </div>
+			<p>
+				<strong>Math:</strong> The Math skill gives a character the knowledge
+				of basic mathematical concepts such as addition and
+				subtraction A character with Math may add and
+				subtract in their heads Any character without this
+				skill must find physical representations to count higher
+				than five
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 9<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="MoreMathSkill" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('MoreMathSkill')"> X </div>
+			<p>
+
+				<strong>More Math:</strong> This skill entails more complicated
+				mathematical concepts than the Math skill, such as
+				multiplication, division, roots, and powers of magnitude<br>
+				<i>
+					&nbsp;&nbsp;&nbsp;Prerequisite:<br>
+					&nbsp;&nbsp;&nbsp;Math<br>
+				</i>
+
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 9<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="MetalLoreSkill" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('MetalLoreSkill')"> X </div>
+			<p>
+				<strong>Metal Lore:</strong> Metals, alloys, and their strengths, weaknesses, and uses
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Page 12<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+		<div id="BronzewoodCraft" class="contentSection rulebook" >
+			<div class="close" onclick="toggleContent('BronzewoodCraft')"> X </div>
+			<h2 class="CraftPacket">Armorsmithing 3 Apprentice</h2>
+			<p>
+				Crafting for the crown can get you up to 12 Silver
+				between events and 60 Silver over the winter. <br><br>
+				You can repair armor on field at 1AP/3mins<br><br>
+				Allows you to craft: Leather, Composite, and Chain
+				at a rate of 4 locations of Leather, or 3 locations of
+				Composite, or 2 locations of Chain per month.<br><br>
+				You can a work with Alloys ,Chitinous Hides,(If you
+				have the appropriate lore skills), and Bronzewood at
+				this level.<br><br>
+				Chitinous Hide -- Leather Physrep counts as plate for
+				armor point value. Materials cannot be bought from
+				merchants in town. It can only be repaired by magical
+				means.
+				<br><br>
+				Bronzewood -- Leather Physrep counts as plate for
+				armor point value. Materials cannot be bought from
+				merchants in town. It can only be repaired by magical
+				means.
+			</p>
+			<p class="page"><img src="page_decoration.svg" alt="decoration">Craft packet - Armorsmith<img src="page_decoration.svg" class="mirror" alt="decoration"></p>
+		</div>
+
+	</div>
+
+	<!-- Main Content -->
+	<div class="scroll">
+		<div id="spacer"></div>
+		<div class="content">
+			<h1 class="centered"> Skylar&apos;s Guide To Armor </h1>
+				<h3 class="centered"> KANAR Players Guide </h3>
+
+
+				<img width="100%" src="skylar_kanar_craft.png" class="centered" alt="kanar logo">
+
+			<h1 id="Introduction">Introduction</h1>
+				<p>
+					KANAR&apos;s game system can be a complex web of interlinking systems.  This guide focuses on trying to compile all of the rules related to Armor in the game.  When possible, I will be referencing official text.<br><br>
+					To access, just click on any text that is <span class="clickable" onclick="toggleContent('example')"> highlighted </span>.  You&apos;ll find it in the boxes on the right hand side of the page.
+					<br>
+					Not all rules/procedures/policies have been fully officially documented yet, so you will find those without official text noted by an <span class="unofficial"> blue font</span>. <br>
+				</p>
+
+				<p>
+					Also, in an effort to be a complete resource, some information provided may be considered privileged to only those with particular skills.  This information will be hidden by default.
+					You can look at the information by clicking the relevant skill in brackets</p>
+					<details class="privileged"> It's a secret message!!
+						<summary class="privileged">[Example Skill]</summary>
+					</details>
+
+					<div class="centered">
+						<img width="100px" src="skylar_warning.png" class="centered" alt="Warning">
+					</div>
+			<h1 id="Disclaimer"> Disclaimer</h1>
+				<p>
+					This is a guide made by a player for other players.  As such, this is not an official source.  All game staff (PM/GM/etc..) have final say on the rules.  <br>
+					Since the game&apos;s rules shift over time due to new rules or clarifications, I&apos;ll try to keep this guide updated, but you can use the date below to know when it was last touched.<br><br>
+
+					If you have any questions/clarifications/corrections, please reach out to me on discord or at Skylar.Roundfellow@gmail.com
+
+				</p>
+				<p class="centered"><strong><u>Giuide Updated through: 5/3/2024</u></strong></p>
+
+			<h1 id="ArmorBasics">Armor Basics</h1>
+				<div class="h2_shift">
+					<p>
+						In general, armor provides the player with extra AP (Armor Points).  This AP is depleted first when taking damage.
+						See the <a href="#Combat">Combat</a> section for a deeper dive into the mechanics.
+					</p>
+				<h2 id="ArmorLocations">Locations</h2>
+					<p class="clickable" onclick="toggleContent('armorLocation')">
+						In KANAR, armor is worn on specific locations on the body. <br>
+						There are 7 in total: <br>
+						&nbsp;&nbsp;&nbsp;Head<br>
+						&nbsp;&nbsp;&nbsp;Rear Torso (Back)<br>
+						&nbsp;&nbsp;&nbsp;Front Torso (Chest) <br>
+						&nbsp;&nbsp;&nbsp;Left Arm<br>
+						&nbsp;&nbsp;&nbsp;Right Arm<br>
+						&nbsp;&nbsp;&nbsp;Left Leg<br>
+						&nbsp;&nbsp;&nbsp;Right Leg<br>
+						<br>
+						The physical representation (physrep) needs to cover the majority of the location to count, but you can combine partial locations on the limbs. This means you could wear two bracers which cover both of your lower arms and count it as one location.  Or wear two greaves and count that as one as well.
+					</p>
+					<p>
+						Each armor location can support only one type of armor at a time.  You can&apos;t stack breastplate and a chain shirt for your Front Torso slot.  You would need to decide which of the two filled the location. <br>
+					</p>
+					<p>
+						A player must also have a tag for each location of armor for it to be considered in game.<br>
+						You can wear armor without a tag but it will not provide any mechanical benefit.
+					</p>
+					<p class="clickable" onclick="toggleContent('knockoutHelmet')">
+						If you have a metal helmet that covers the back of the head, it can protect you against a knock out suprise attack. <br><br>
+					</p>
+
+				<div class="clickable" onclick="toggleContent('armorType')">
+				<h2 id="ArmorTypes">Types</h2>
+				<p>
+					There are 4 different types of armor available, each provides different levels of protection (Armor Points) per location:
+				</p>
+					<table class="CenteredTable">
+						<thead>
+						<tr><th scope="col">Type</th><th scope="col">AC</th></tr>
+						</thead>
+						<tbody>
+						<tr><td>Leather</td>		<td>5 AP</td></tr>
+						<tr><td>Composite</td>	<td>10 AP</td></tr>
+						<tr><td>Chain/Scale</td>	<td>15 AP</td></tr>
+						<tr><td>Plate</td>		<td>20 AP</td></tr>
+						</tbody>
+					</table>
+				</div>
+
+				<h2 id="CalculatingAP">Calculating AP</h2>
+					<p >
+						To calculate the AP of the armor you currently have equipped, you add up the current AP for each of the 7 locations.<br><br>
+						In order for a location to count in the calculation it needs:<br>
+						&nbsp;&nbsp;&nbsp;&nbsp; * A physical representation<br>
+						&nbsp;&nbsp;&nbsp;&nbsp; * A tag<br>
+						&nbsp;&nbsp;&nbsp;&nbsp; * A current AP larger than 0.<br>
+						<br>
+						Current AP starts off the same as the total AP for that type of armor.<br>
+						When the armor takes damage, the current amount of AP it provides is reduced by the amount of damage taken.<br>
+						If it is above 0 AP, it can be <a href="#RepairOptions">Repaired</a> back up to the total AP for that type of armor.
+					</p>
+
+					<p  class="clickable" onclick="toggleContent('CalcAP1')">
+						In total, a player can benefit from a max of 140 of non-magical armor.<br>
+						[Plate (20) x 7 locations]
+					</p>
+					<p>
+						The Total Max AP a player can get is 146, due to the <a href="#ArmorRune">armor rune enchantment</a>.<br>
+						(See <a href="#MagicArmor">Magical Armor</a>)<br>
+					</p>
+					<br><br>
+
+					<p>
+						Your <a href="#ArmorMove">Armor Move skill</a> will determine how much of that AP you can utilize.<br>
+						The AP you can utilize is limited to the lowest of the following:<br>
+						&nbsp;&nbsp;&nbsp;&nbsp; * Your <a href="#ArmorMove">Armor Move Skill</a> ranks x 5<br>
+						&nbsp;&nbsp;&nbsp;&nbsp; * The current AP that you have equipped <br>
+					</p>
+
+					<p class="clickable unofficial" onclick="toggleContent('underArmorMove')">
+						One weird interaction to note is what happens when you don&apos;t have enough AP to fully utilize an armor location.<br>
+						In particular, if you wear armor larger than your Armor Move, your armor will break when you run out of AP, even if the armor would typically have AP left over.<br><br>
+
+						As an example:<br>
+						If you are wearing a plate armor location [20AP], and only have 1 rank in Armor Move [5 AP].
+						That plate armor will break after it takes 5 damage.
+					</p>
+			</div>
+
+
+			<h1 id="ArmorSkills">Armor related Skills</h1>
+				<p>In order to actually use any armor you need to have specialized skills.  </p>
+
+				<div class="centered">
+					<img src="skylar_armor_move.png" alt="Armor Move" width="150">
+				</div>
+
+				<div class="h2_shift">
+					<div class="clickable" 	onclick="toggleContent('ArmorMoveRules')">
+					<h2 id="ArmorMove">Armor Move</h2>
+					<p>
+						This is a required skill to use any armor.  <br>
+						Each time you buy the skill, you gain the ability to use 5 more AP from any armor you wear up to the total AP of the armor itself.<br>
+						<br><br>
+						This is a Phsyical Ability Skill, which means you can buy it multiple times.<br>
+						It can be self taught, so after you learn from someone else once, you can teach it to yourself as many times as you want.
+						<br>
+						After that first rank, it only counts as one of your skills learned per event; regardless of how many ranks you pick up in that event's signout.
+						<br><br>
+						Each rank costs:
+					</p>
+						<table class="CenteredTable">
+							<thead>
+							<tr><th scope="col">Type</th><th scope="col">AC</th></tr>
+							</thead>
+							<tbody>
+							<tr><td>Warrior</td>	<td>10 XP</td></tr>
+							<tr><td>Cleric</td>		<td>15 XP</td></tr>
+							<tr><td>Rogues</td>		<td>15 XP</td></tr>
+							<tr><td>Mage</td>		<td>20 XP</td></tr>
+							</tbody>
+						</table>
+					</div>
+
+				<h2 id="Armorsmithing">Craft &mdash; Armorsmithing</h2>
+					<p>
+						This skill will allow you to create pieces of armor. <br> <br>Like Armor move, you can purchase this skill multiple times at the same price.<br>
+						Unlike Armor move, there are only 5 levels associated.<br><br>
+						Costs per rank per Class:
+					</p>
+						<table class="CenteredTable">
+							<thead>
+							<tr><th scope="col">Type</th><th scope="col">AC</th></tr>
+							</thead>
+							<tbody>
+							<tr><td>Warrior</td>	<td>16 XP</td></tr>
+							<tr><td>Cleric</td>	<td>24 XP</td></tr>
+							<tr><td>Rogues</td>	<td>16 XP</td></tr>
+							<tr><td>Mage</td>		<td>16 XP</td></tr>
+							</tbody>
+						</table>
+					<p>
+						There will be more information in the <a href="#Crafting">Crafting</a> section later in this guide.
+					</p>
+
+				<h2 id="OtherSkills">Other helpful skills</h2>
+					<p>
+						Please see the <a href="#AppendixI">Appendix I</a> for a list of other skills that aren't directly related to armor, but can still be useful skills.
+					</p>
+
+				</div>
+			<h1 id="Combat">Combat</h1>
+				<p>
+					Combat is the main purpose of Armor.  You can think of armor as a temporary pool of Body Points that might be replenish-able, depending on what happens.
+					We&apos;ll go more into that when we get to <a href="#RepairOptions">repair options</a>
+				</p>
+				<div class="h2_shift">
+				<div class="clickable" 	onclick="toggleContent('Combat1')">
+				<h2 id="Damage">Taking damage</h2>
+					<p>
+						When you&apos;re hit by an attack, most of the time you&apos;ll take damage.  This is the number that gets called out by the other creature/player.
+						That number then gets subtracted from your health pools, in the following order:
+					</p>
+
+					<p class="centered">MAP -&gt; AP -&gt; MAP* -&gt; MBP -&gt; BP</p>
+
+					<p>
+						MAP  = Magical Armor Points<br>
+						AP     = Armor Points<br>
+						MAP* = Magical Armor Points for <a href="#WindArmor">Wind Armor</a>, <a href="#DivineProtection">Divine Protection</a><br>
+						MBP  = Magical Body Points<br>
+						BP     = Body Points<br>
+						<br>
+
+						We&apos;ll go over the MAP and MAP* in the <a href="#MagicArmor">next section</a>.<br><br>
+						Any “No-Armor” attack ignores MAP and AP and goes directly to MBP then BP, bypassing armor completely<br>
+						[Exceptions: <a href="#IceMantle">Ice Mantle</a>, <a href="#WindArmor">Wind Armor</a>, <a href="#DivineProtection">Divine Protection</a>]<br><br>
+
+						For armor in this guide, we&apos;re typically only concerned with the AP pool.  I'll provide some info on the Magical Armor Points just for refence. <br>
+						Within the AP pool, there&apos;s a priority for how damage is distributed toyour different locations.<br><br>
+
+						The location with the smallest AP takes damage first till it is exhausted, then the next smallest and so on.<br><br>
+						<span class="unofficial">
+						If all locations have the same AP and type, it's up to the player to decide which location takes damage first.
+						</span><br><br>
+					</p>
+				</div>
+
+				<h2 id="Example">Walking through an example:</h2>
+					<p>
+							I have 1 location of leather armor and 1 location of chain armor with enough armor move to utilize all of it. <br>
+							That would have a total of AP 20 (5 leather and 15 chain). <br><br>
+
+							I take a hit for 3 damage.<br>
+							All 3 damage goes into the leather location, leaving it at 2 AP.   The chain location is at 15 AP. <br><br>
+
+							I take another hit for 4 damage.<br>
+							2 of that damage goes into the leather location, reducing it to 0.  The last 2 damage goes into the chain armor, leaving it at 13. <br><br>
+
+							When the leather armor went to 0, it became broken.  This means it cannot be repaired without using a Mending Oil or via econ-based crafting.<br>
+							(See <a href="#BrokeDestroy">Broken vs Destroyed</a>)<br><br>
+
+							Since the chain location wasn&apos;t broken or destroyed, that chain armor can now be repaired by an Armorsmith out of combat.
+							<br><br>
+
+							It takes between 1-5 minutes to repair one AP, depending on how skilled the Armorsmith is.  (Level 1 translates to Novice, Level 5 translates to Master)<br><br>
+
+							Continuing our example, a Master Armorsmith then repairs the armor by role playing out the fixing process for the next 2 minutes.  (A Novice would spend 10 minutes)<br><br>
+					</p>
+					<p class="unofficial">
+						Not explicitly in the rules, it&apos;s considered good form to remove the armor so you can more effectively role play fixing it.
+						I&apos;ve seen multiple armor smiths working on the same piece on field, to cooperatively minimize the time.  I don&apos;t know where that sits officially.
+					</p>
+
+				<h2 id="MagicArmor">Magical Armor</h2>
+					<p>
+							There are a couple of ways to receive Magical Armor Points.  The Spells are listed below.  Any spell with an * is considered MAP*: <br><br>
+								Bardic Spells:<br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Bulwark">Bulwark Series</a><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="#WindArmor">*Wind Armor </a><br><br>
+								E/W Spells:<br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="#OakHide">Oak Hide Series</a><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="#IceMantle">Ice Mantel - For Fire spells, it still affects no-armor damage</a><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="#DivineProtection">*Divine Protection</a><br><br>
+								F/A Spells:<br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Protection">Protection Series</a><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="#WindArmor">*Wind Armor</a><br>
+								<br>
+							The Armor Rune is a slightly different beast.  It is magical, but counts as regular AP in terms of the health pools.  It also does not require <a href="#ArmorMove">Armor Move</a> to use, and extends your total AP from 140 to a max of 146.<br><br>
+								Enchantment:<br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ArmorRune">Armor Runes</a><br><br>
+					</p>
+				</div>
+				<div class="h3_shift">
+					<div class="clickable" onclick="toggleContent('BulwarkSeriesRules')">
+					<h3 id="Bulwark">Bulwark Series (Minor Bulwark &mdash; Critical Bulwark)</h3>
+						<p>
+								Provides Additional MAP that&apos;s tied to a specific armor location.<br>
+								The example provided is for Minor Bulwark, but values go up to Critical Bulwark [12AP]
+						</p>
+					</div>
+
+					<div class="clickable" onclick="toggleContent('OakHideSeriesRules')">
+					<h3 id="OakHide">Lesser Oak Hide and Greater Oak Hide </h3>
+						<p>
+								Provides Magical AP and protections against effects
+								(first effect or depleted AP resolves the spell): <br>
+									Backstab, {Assisinate} Knockout, or Stunned statues
+						</p>
+					</div>
+					<div class="clickable" onclick="toggleContent('ProtectionSeriesRules')">
+					<h3 id="Protection">Protection Series (Minor Protection &mdash; Penultimate Protection)</h3>
+						<p>
+									Provides MAP.<br>
+									The example provided is for Minor Protection, but values go up to Penultimate Protection [14AP]]
+									<br>
+									<span class="unofficial">The spell says that it's Bardic, but that is a typo from previous rules</span>
+						</p>
+					</div>
+					<div class="clickable" onclick="toggleContent('WindArmorRules')">
+						<h3 id="WindArmor">Wind Armor</h3>
+						<p>
+							Provides 6 AP or protections against effects
+							(first effect or depleted AP resolves the spell):<br>
+								Death Strike, Demise, Death, Degenerate,
+								Surprise Attacks, Paralyzed or Stunned statues
+						</p>
+					</div>
+					<div class="clickable" onclick="toggleContent('DivineProtectionRules')">
+						<h3 id="DivineProtection">Divine Protection</h3>
+						<p>
+							This is the same thing as Wind Armor, but for E/W.
+						</p>
+					</div>
+					<div class="clickable" onclick="toggleContent('IceMantleRules')">
+						<h3 id="IceMantle">Ice Mantle</h3>
+						<p>
+							Provides 2 MAP, and which is also used up against any “Fire” no armor attack.
+						</p>
+					</div>
+					<div class="clickable" onclick="toggleContent('ArmorRuneRules')">
+					<h3 id="ArmorRune">Armor Rune</h3>
+						<p>
+								This enchantment provides a master worked enchantable fabric with the ability to provide 2-6 AP above and beyond any Armor currently worn.<br>
+								<br>
+								The rules provided are the lowest of the 3 levels.  The highest provides 6 AP and takes 18 weeks to create.
+								<br>
+
+						</p>
+								<details class="privileged">
+									<summary>[Mystic Runes]</summary>
+
+									This fabric needs to be Demi Enchantable, so current options are:<br>
+									<br>
+									Demi 1<br>
+									&nbsp;&nbsp;&nbsp;&nbsp;Stormsilk<br><br>
+									Demi 2<br>
+									&nbsp;&nbsp;&nbsp;&nbsp;Rimeweave<br><br>
+									Demi 3<br>
+									&nbsp;Mithril Cloth<br>
+									&nbsp;Demonic Silk<br>
+									&nbsp;Sapphire Cloth<br>
+									&nbsp;Ruby Cloth<br>
+								</details>
+					</div>
+
+					<div class="clickable" onclick="toggleContent('SpellRestrictRules')">
+					<h3 id="SpellRestrict">Spell Restrictions</h3>
+						<p>
+								It&apos;s important to note that due to the way spell stacking works, you won&apos;t be able to have spells with the same element/type on you at the same time.<br>
+								<br><br>
+								In regards to spells that provide you with MAP, you can only have one spell from each row active at a time:<br>
+								<strong>Air Protection:</strong> <a href="#Protection">Protection Series</a>, <a href="#WindArmor">Wind Armor</a><br>
+								<strong>Earth Protection:</strong> <a href="#OakHide">Oak Hide Series</a>, <a href="#DivineProtection">Divine Protection</a><br>
+								<strong>Water Protection:</strong> <a href="#IceMantle">Ice Mantle</a><br>
+								<strong>Earth Augment:</strong> <a href="#Bulwark">Bulwark Series</a><br>
+								<br>
+								You can have a spell from each of the above rows active at a time.<br>
+								<br>
+								<span class="unofficial">If you do have multiple MAP available at the same time, the player decides which of the two spells takes the damage first.</span><br>
+						</p>
+					</div>
+				<div class="h2_shift">
+				<h2 id="BrokeDestroy">Broken vs Destroyed</h2>
+					<div class="h2_shift">
+					<h3> Broken </h3>
+					<p>
+						New for this rulebook, we have a status for Armor: Broken.<br><br>
+
+						When your armor takes damage and is reduced to 0 AP.  It is considered Broken.<br>
+						(Previously, the armor was considered Destroyed.)<br>
+					</p>
+					<h3> Destroyed </h3>
+					<p>
+						If your armor is hit by a Wither Armor spell, then it is destroyed.<br>
+						The Player needs to rip up the tag into 2 pieces and turn into Econ.  This is the same process as using a Potion/Scroll.<br><br>
+
+						Wither Armor is particularly strong as there is only one way to actively counter it: <span class="clickable" onclick="toggleContent('GreaterSpellBarrierRules')">Greater Spell Barrier. </span> You'll have to cast it before Wither Armor is cast. <br>
+						The Stainless spell/Alchemy only counters regular Wither, does not counter Wither Armor.<br>
+
+						<br>
+						Your armor is safe from a Wither Armor if it has a <a href="#FortRune">Fortification Rune</a> or <a href="#RepairRune">Repair Rune</a><br>
+						<br>
+					</p>
+					</div>
+				<h2 id="RepairOptions">Repair options</h2>
+					</div>
+					<div class="h3_shift">
+					<h3 id="NonBroken">Non-Broken (AP 1+ or Repair/Fortification Rune)</h3>
+						<p>
+							Non broken armor can have its AP restored on field<br>
+							You have 2 main options for repair:<br>
+							<br>
+							<span class="clickable" onclick="toggleContent('RepairCraftRules')">
+							<strong>Option 1: The Craft - Armorsmithing skill.</strong><br>
+								It will take 1-5 minutes per AP depending on the Armorsmith&apos;s crafting level.<br>
+								The Armor should be off of the player while role playing the repair actions
+							</span>
+							<br><br>
+							<strong>Option 2: Spells/Alchemy</strong><br>
+								If the Armor is <u>Leather</u> or <u>Composite</u> or <u>other dead organic material</u><br>
+								<span class="clickable" onclick="toggleContent('RepairMend')">
+									The Mend spell will repair 5 AP<br>
+								</span>
+									<br>
+								If the Armor is <u>Chain/Scale Mail</u> or <u>Plate</u><br>
+								<span class="clickable" onclick="toggleContent('RepairMetalMend')">
+									The Metal Mend Alchemy will repair 5 AP<br>
+								</span>
+						</p>
+						<br>
+					<h3 id="Broken">Broken (AP 0)</h3>
+						<p>
+							Broken Armor can be repaired either On Field or Off Field.<br>
+						</p>
+							<h4><strong>On Field there are 2 options</strong></h4>
+								<div class="clickable h2_shift" onclick="toggleContent('MendingOilRules')">
+								<h5><strong>Option 1: Mending Oil</strong><br></h5>
+								This alchemy will return your broken armor to 1 AP, it can then be repaired by the options above.
+								</div><br>
+
+								<div class="h2_shift">
+								<h5><strong>Option 2: On field crafting.</strong></h5>
+								This method will use the <a href="#OnField">on field crafting rules</a> to fully repair a location of armor.  <br>
+								It will return with full AP.<br><br>
+								It&apos;s typically a bad idea to repair via this method, unless you can sell the item at full price, as 	you&apos;re missing out on crafting a large item w/out the time restriction.<br>
+								An exception to this might be <a href="#MergingLocations">merged locations</a>.
+								</div>
+								<br>
+								<br>
+							<h4><strong>Off Field</strong></h4>
+							<p>
+								Armor can be repaired using the same process as armor creation, the difference being that it costs half as much to repair broken armor, as it does to create new armor. <br>
+								This reduction in cost is in both time and supplies, so a Plate would cost you 6 units and be created in 1 week.<br>
+								(See <a href="#Crafting">Crafting between events</a>)
+							</p>
+
+						<br>
+						<br>
+					<h3 id="Destroyed">Destroyed (Wither Armor)</h3>
+						<p>
+							There is no way to restore armor that has been Destroyed.<br><br>
+							<span class="unofficial">Please reach out to a GM, as they might be able to provide an alternative route.</span>
+						</p>
+					</div>
+			<h1 id="Enchanting">Enchanting</h1>
+				<p>
+					These enchantments are vital at keeping your Armor from being broken or destroyed.  This guide doesn&apos;t step through how to enchant.<br>
+				</p>
+				<div class="h2_shift">
+				<div class="clickable" onclick="toggleContent('RepairRuneRules')">
+				<h2 id="RepairRune">Repair Rune</h2>
+					<p>
+						The Repair Rune allows the armor to auto repair at a rate of 1-3 AP a day.<br>
+						Note, it specifically mentions “Armor”, so you cannot put this on any enchanted item.<br>
+					</p>
+				</div>
+				<div class="clickable" onclick="toggleContent('FortRuneRules')">
+				<h2 id="FortRune">Fortification Rune</h2>
+					<p>
+						The Fortification Rune cannot be broken or destroyed.<br>
+						For the purpose of this guide, we&apos;re placing it on Armor, but this rune can be placed on any enchant-able item.<br>
+					</p>
+				</div>
+				</div>
+
+			<h1 id="Buying">Buying</h1>
+				<p>
+					Buying and bartering are core to the KANAR larp experience.<br>
+					Go out and find an Armorsmith and trade!<br>
+					<br>
+					<br>
+					That said, you do have the option to go to Town to purchase goods from Econ.<br>
+					<br>
+					The <a href="#Appraisal">Appraisal Skill</a> may be used to adjust the prices, but the default costs for a location of armor for each type is below:
+				</p>
+					<table class="CenteredTable">
+						<thead>
+						<tr><th scope="col">Type</th><th scope="col">AC</th></tr>
+						</thead>
+						<tbody>
+						<tr><td>Leather</td>		<td>10 silver</td></tr>
+						<tr><td>Composite</td>	<td>15 silver</td></tr>
+						<tr><td>Chain/Scale</td>	<td>20 silver</td></tr>
+						<tr><td>Plate</td>		<td>30 silver</td></tr>
+						</tbody>
+					</table>
+
+
+			<h1 id="Physreps">Physreps and you</h1>
+				<p>
+					The rule book does a pretty good job of providing information on what is acceptable.<br>
+					<br>
+					This is a very subjective area, as you&apos;ll need to get staff approval for any armor you&apos;re wearing  (for it to count as Armor.  You may wear what you like for Aesthetic purposes)<br>
+					<br>
+					The only area I have any experience in is Leather, and it&apos;s suggested to use 5-6 oz leather at a bare minimum.<br>
+					<br>
+					It&apos;s highly recommended to use 2 layers when constructing your armor, or use 10-12 oz leather.<br>
+					<br>
+					<br>
+					Due to the tag rules, you&apos;ll need to make sure every armor tag you have on your person has a physrep.  This includes broken armor you have from another player, or armor you&apos;re hoping to sell.<br>
+					<br>
+					For Broken Armor I suggest:<br>
+				</p>
+					<table class="CenteredTable">
+						<tbody>
+						<tr><td>Leather</td>		<td>Leather Scraps</td></tr>
+						<tr><td>Composite</td>		<td>Leather Scraps with Rivets or other hardware</td></tr>
+						<tr><td>Chain/Scale</td>	<td>Small number of joined chain mail rings.</td></tr>
+						<tr><td>Plate</td>			<td>Small metal stamping blanks</td></tr>
+						</tbody>
+					</table>
+				<p class="clickable unofficial" onclick="toggleContent('DeedRules')">
+					For armor you&apos;re hoping to sell, a small “Deed” can be used, it needs to incorporate the item # and description, but you can make as pretty as desired.<br>
+				</p>
+
+			<div class="clickable" onclick="toggleContent('CraftingRules')">
+			<h1 id="Crafting">Crafting</h1>
+				<p>For those of us who decide they want to participate in the crafting side of things, here&apos;s my thoughts on the rules that control crafting</p>
+
+				<div class="h2_shift">
+				<h2 id="OnField">On Field</h2>
+					<p>
+						The rules provided do a pretty good job of laying out all of the steps needed.  For an Armorsmith, it&apos;s recommended to have a small anvil (real or foam) to act as your crafting prop.<br>
+						<br>
+						When preparing to craft, make sure that you find a location you feel relatively safe at.  A place where there are people to converse with is a plus, as the 2 hour requirement is a long time.  I also suggest stocking up on drink and food, and using the restrooms.<br>
+						<br>
+						When you&apos;re ready to start, get the attention of a PM to let them know that you&apos;ll be crafting.<br>
+						<br>
+						After you&apos;re done crafting, let the GM shed know you&apos;ve completed.<br>
+						(I was told to tell econ, to get the temp tag, but Econ directed me to the GM Shed)<br>
+						<br>
+						I recommend crafting the most expensive object you can (typically plate), as you&apos;re crafting only one item, regardless of the time it takes.
+					</p>
+				<h2 id="BetweenEvents">Between Events</h2>
+					<p>
+						Between events, you can craft either for yourself or for the King.<br>
+						<br>
+						If you craft for the King, you will make silver based on your level in the craft.<br>
+						Level 1 = Novice<br>
+						Level 5 = Master.<br>
+						<br>
+						If you craft for yourself, you can create any number of items that add up for the month.  You&apos;ll need to make sure you have enough coin in the bank, or have the materials when you pick up the tag, or your crafting will fail.<br>
+						<br>
+						You can craft and go on adventures at the same time.<br>
+						<br>
+						In either route, you use the Item Creation link on the Kanar website. And fill it out.  Next event, visit ECON to get your proper tag.  Don&apos;t forget your physrep!!<br>
+						(Above is the link as of the date of this last update, if it doesn&apos;t work for you please make sure to use the KANAR.CLUB website)
+					</p>
+				</div>
+			</div>
+
+			<h1 id="SubClasses">SubClasses</h1>
+				<p>There are only a handful of subclasses that touch on armor specifically.</p>
+				<div class="h2_shift">
+					<div class="clickable" onclick="toggleContent('ChampionSub')">
+					<h2 id="Champion">Champion</h2>
+					<p>This subclass provides you with a free 10AP "helmet" every day.  You can't wear a helmet to get the benefit, and it won't protect you against knockouts.<br><br>
+
+					It will refresh to 10AP in the morning.<br>
+					<br>
+					Since this is not a physical object, it doesn't interact with most of the armor rules. <br>
+					So, I don't think it would be breakable, repairable, or destroyable.<br>
+				</p>
+				</div>
+				<div class="clickable" onclick="toggleContent('ArtisianSub')">
+					<h2 id="Artisian">Artisian</h2>
+					<p>This subclass allows you to craft faster on field, giving you access to double the amount of time.<br>
+					For armorsmithing, the extra time option isn't as vital, as the highest you could craft is plate, and that takes 2 weeks.  <br>
+					The extra item option is what we're interested in here.<br>
+					<br>
+					I'm unclear on if the double crafting means you need to craft for 4 hours instead of 2.
+					</p>
+				</div>
+				<div class="clickable" onclick="toggleContent('ArtificerSub')">
+					<h2 id="Artificer">Artificer</h2>
+					<p>This is the upgrade of the Artisian subclass and adds quicker crafting on field.<br>
+					<br>
+					I'm unclear on if this means that the double crafting takes place in 2 hours, or if crafting on field takes 1 hour.
+					</p>
+				</div>
+				</div>
+
+			<!--h1 id="SellingRepairing">Selling/Repairing</h1-->
+
+			<div class="clickable" onclick="toggleContent('MergeLocationPost')">
+			<h1 id="MergingLocations">Merging Locations</h1>
+				<p>
+					On facebook, the staff posted about the ability to combine multiple armor locations into a single tag.<br>
+
+					<br>
+					This is only available for armor that is represented by a physrep that covers more than one location.<br>
+					As a common example, a chain armor shirt could cover 3-5 locations and thus be merged into one tag.<br>
+					The main benefit is that this merged tag has the total AP of all locations combined.<br>
+					<br>
+					That would mean the the chain armor shirt mentioned above would have an AP of 45-75. So it would be broken after taking 45 damage, instead of each location breaking after 15 damage.<br>
+
+					<br>
+					<br>
+					The drawback would be that the entire thing would have to be repaired together, which would take longer before you could use parts of it.
+					<br>
+					<br>
+					The rules around how enchanting is handled with the merging process still need to be worked out.<br>
+					It's also unclear if you can merge different types of armor together, or if it has to be the same type.<br>
+					<br>
+					To merge your locations, you'll need to talk to the Econ staff on field.
+					<br>
+
+				</p>
+			</div>
+
+			<h1 id="AppendixI">Appendix I</h1>
+				<div class="h2_shift">
+				<div class="clickable" onclick="toggleContent('AppraisalSkill')">
+				<h2 id="Appraisal">Appraisal</h2>
+					<p>
+						This skill essentially allows you to buy/sell armor at a more accurate amount.
+					</p>
+				</div>
+				<div class="clickable" onclick="toggleContent('AlchemySkill')">
+				<h2 id="Alchemy">Alchemy</h2>
+					<p>
+						This branch of skills costs more for each level you gain in it.  As an example, Alchemy 1 costs 5 for a Mage, Alchemy 2 costs 10 for a Mage, etc…<br>
+						It&apos;s essentially base cost x level.  With a max of 9.<br><br>
+
+						We&apos;re mostly just interested in level 4 here, as there is an alchemical oil called “Mending Oil” which will repair broken armor.<br>  This is discussed in the <a href="#RepairOptions">Repair Options</a> section .
+					</p>
+				</div>
+				<div class="clickable" onclick="toggleContent('ReadWriteSkill')">
+				<h2 id="ReadWrite">Read/Write</h2>
+					<p>
+						This skill allows you to read and write a specific language.<br>
+						It&apos;s the prerequisite of Alchemy and any of the elemental spell abilities.<br>
+					</p>
+				</div>
+				<div class="clickable" onclick="toggleContent('MathSkill')">
+				<h2 id="Math">Math</h2>
+					<p>
+						This skill allows for counting larger numbers and doing basic addition and subtraction.  <br>
+						Useful in general but is a Prerequisite of both Alchemy and More Math.<br>
+					</p>
+				</div>
+				<div class="clickable" onclick="toggleContent('MoreMathSkill')">
+				<h2 id="MoreMath">More Math</h2>
+					<p>
+						This skill allows you to do multiplication and division, which might be helpful in general.<br>
+						We&apos;re interested in it because it&apos;s a Prerequisite of Alchemy level 4.<br>
+					</p>
+				</div>
+				<h2 id="SpellCasting">Spell Casting Abilities</h2>
+					<p>
+						These would be both the Magic Ability: Bardic Ability, E/W Ability, F/A Ability, and their Relevant spell slots.<br>
+						Magic should probably have it&apos;s own guide, but for our purposes it&apos;s included for its ability to enhance or it&apos;s ability to provide MAP (Magical AP)<br>
+						Please see the <a href="#MagicArmor">Magical Armor</a> section for more information.
+					</p>
+				<div class="clickable" onclick="toggleContent('MetalLoreSkill')">
+				<h2 id="MetalLore">Metal Lore</h2>
+					<p>
+						This skill will give you knowledge of the different metals available and what their best propertiese are.<br>
+						It will help during crafting, when picking out units for your armor so you know you're using the right metal.<br><br>
+
+						It will also help if you go into enchanting, as you'll use it with Mystic Runes to make sure you have enchantable armor.
+					</p>
+				</div>
+				</div>
+
+			<h1 id="appendixII">Appendix II &mdash; Special armors</h1>
+				<div class="h2_shift clickable" onclick="toggleContent('BronzewoodCraft')">
+				<h2 id="Bronzewood">Bronzewood and Chitinous Hide</h2>
+					<p>
+						This is unlocked for an Amorsmith at level 3<br>
+						This armor is considered to be plate armor in all aspects but it's phsyrep, which is leather.<br>
+						They can only be repaired by magical means.<br>
+						<br>
+						If the armor is damaged but not broken, they must be fixed by a Mend spell.<br>
+						If the armor is broken, it must be fixed by “Mending Oil”
+					</p>
+				</div>
+
+		</div>
+	</div>
+	</div>
+</body>
+</html>
